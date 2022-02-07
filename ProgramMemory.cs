@@ -44,15 +44,15 @@ public class ProcessMemory
         {
             try
             {
-                if (CheckProcess())
-                {
-                    baseAddress = (IntPtr)0;
-                    processModule = mainProcess[0].MainModule;
-                    baseAddress = processModule.BaseAddress;
-                    return (long)baseAddress;
-                }
-                else return 0;
+            if (CheckProcess())
+            {
+                baseAddress = (IntPtr)0;
+                processModule = mainProcess[0].MainModule;
+                baseAddress = processModule.BaseAddress;
+                return (long)baseAddress;
             }
+            else return 0;
+        }
             catch
             { }
             return 0;
