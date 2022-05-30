@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
@@ -138,9 +138,11 @@ namespace AVP2MemorySniffer
             if (deltaTime <= 0.5f)
             {
                 Vector3 velocity = deltaPos / deltaTime;
-                float sum = velocity.X * velocity.X + 0 * 0 + velocity.Z * velocity.Z;//only care about horizontal speed
+                float sumXY = velocity.X * velocity.X + velocity.Z * velocity.Z;//only care about horizontal speed
+                float sumY = velocity.Y * velocity.Y;
 
-                ConsoleWriteColor(String.Format("Speed [{0:0.00}]", Math.Sqrt(sum) * 15), 0, 8, ConsoleColor.Yellow);
+                ConsoleWriteColor(String.Format("Horizontal Speed [{0:0.00}]", Math.Sqrt(sumXY) * 15), 0, 8, ConsoleColor.Yellow);
+                ConsoleWriteColor(String.Format("Vertical Speed [{0:0.00}]", Math.Sqrt(sumY) * 15), 0, 9, ConsoleColor.Yellow);
 
             }
 
