@@ -30,7 +30,6 @@ namespace AVP2MemorySniffer
             Vector3 lastPosition = Vector3.Zero;
             float lastTime = 0.0f;
 
-            float lastSpeed = 0.0f;
             List<float> totalSpeedToAverage = new List<float>();
 
 
