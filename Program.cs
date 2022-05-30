@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
@@ -30,7 +30,6 @@ namespace AVP2MemorySniffer
             Vector3 lastPosition = Vector3.Zero;
             float lastTime = 0.0f;
 
-            float lastSpeed = 0.0f;
             List<float> totalSpeedToAverage = new List<float>();
 
 
@@ -72,6 +71,11 @@ namespace AVP2MemorySniffer
                     GetHeadTrophyCount(pm);
                     GetHealth(pm);
                     PositionSpeed(pm, ref lastPosition, ref lastTime);
+
+                    var hasControl = pm.TraverseBoolean((IntPtr)pm.GetModuleAddress("cshell.dll") + 0x001C9A64, new int[] { 0xD2C, 0x0 } );
+                    ConsoleWriteColor(String.Format("HasControl: [{0}]", hasControl), 0, 11, ConsoleColor.Yellow);
+
+                    //ConsoleWriteColor(String.Format("object.lto: [{0:X}]", pm.GetModuleAddress("object.lto")), 0, 13, ConsoleColor.Yellow);
 
                 }
                 catch
@@ -138,14 +142,19 @@ namespace AVP2MemorySniffer
             if (deltaTime <= 0.5f)
             {
                 Vector3 velocity = deltaPos / deltaTime;
-                float sum = velocity.X * velocity.X + 0 * 0 + velocity.Z * velocity.Z;//only care about horizontal speed
+                float sumXY = velocity.X * velocity.X + velocity.Z * velocity.Z;//only care about horizontal speed
+                float sumY = velocity.Y * velocity.Y;
 
-                ConsoleWriteColor(String.Format("Speed [{0:0.00}]", Math.Sqrt(sum) * 15), 0, 8, ConsoleColor.Yellow);
+                ConsoleWriteColor(String.Format("Horizontal Speed [{0:0.00}]", Math.Sqrt(sumXY) * 15), 0, 8, ConsoleColor.Yellow);
+                ConsoleWriteColor(String.Format("Vertical Speed [{0:0.00}]", Math.Sqrt(sumY) * 15), 0, 9, ConsoleColor.Yellow);
 
             }
 
             lastTime = currentTime;
             lastPosition = newPos;
+
+            ConsoleWriteColor(String.Format("Game Time [{0:0.00}]", currentTime), 0, 10, ConsoleColor.Yellow);
+
         }
 
         public static void ClearCurrentConsoleLine()
