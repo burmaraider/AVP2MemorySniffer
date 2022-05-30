@@ -148,6 +148,9 @@ namespace AVP2MemorySniffer
 
             lastTime = currentTime;
             lastPosition = newPos;
+
+            ConsoleWriteColor(String.Format("Game Time [{0:0.00}]", currentTime), 0, 10, ConsoleColor.Yellow);
+
         }
 
         public static void ClearCurrentConsoleLine()
