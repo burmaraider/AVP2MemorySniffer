@@ -73,6 +73,11 @@ namespace AVP2MemorySniffer
                     GetHealth(pm);
                     PositionSpeed(pm, ref lastPosition, ref lastTime);
 
+                    var hasControl = pm.TraverseBoolean((IntPtr)pm.GetModuleAddress("cshell.dll") + 0x001C9A64, new int[] { 0xD2C, 0x0 } );
+                    ConsoleWriteColor(String.Format("HasControl: [{0}]", hasControl), 0, 11, ConsoleColor.Yellow);
+
+                    //ConsoleWriteColor(String.Format("object.lto: [{0:X}]", pm.GetModuleAddress("object.lto")), 0, 13, ConsoleColor.Yellow);
+
                 }
                 catch
                 { }
